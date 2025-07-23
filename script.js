@@ -91,11 +91,12 @@ function saveFavorites() {
 // --------- Render Functions ---------
 function renderCourseCard(course, isFavorite = false, showHeart = false, minimal = false) {
     if (minimal) {
+        // For Top Courses: wrap the card in an anchor tag linking to the Google Form
         return `
-        <div class="course-card minimal-card" data-id="${course.id}">
+        <a href="${course.googleFormLink}" target="_blank" rel="noopener noreferrer" class="course-card minimal-card">
             <img src="${course.imageSrc}" alt="${course.name}">
             <h3>${course.name}</h3>
-        </div>
+        </a>
         `;
     }
     return `

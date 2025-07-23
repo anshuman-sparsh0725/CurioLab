@@ -5,8 +5,8 @@
     --primary-bg: #020b39;
     --secondary-bg: #221428;
     --accent: #000000;
-    --text-main: #f4f6fa;
-    --text-secondary: #b0b8c1;
+    --text-main: #000000;
+    --text-secondary: #030a12;
     --card-bg: #ffffff;
     --shadow: 0 4px 24px rgba(16,28,44,0.12);
     --border-radius: 18px;
@@ -55,12 +55,12 @@ html, body {
 
 /* Navbar */
 header {
-    position: fixed;
+    position: static;
     top: 0;
     left: 0;
     width: 100vw;
     z-index: 900;
-    background: transparent;
+    background-image: url('background image.jpg');
     padding: 20px 0 0 20px;
 }
 .navbar {
@@ -69,7 +69,7 @@ header {
     align-items: center;
 }
 .nav-link {
-    color: var(--text-main);
+    color: #e0e4ee;
     background: none;
     border: none;
     font-size: 1.1rem;
@@ -81,7 +81,7 @@ header {
     transition: background var(--transition), color var(--transition);
 }
 .nav-link:hover {
-    background: var(--accent);
+    background: #e14c50;
     color: #fff;
 }
 
@@ -145,7 +145,7 @@ header {
 }
 .hero-content p {
     font-size: 1.3rem;
-    color: var(--text-secondary);
+    color: #fff;
 }
 
 /* Courses Section */
@@ -254,7 +254,7 @@ header {
     text-align: center;
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--accent);
+    color: #000000;
     background: var(--card-bg);
     margin: 0;
     padding: 16px 0 12px 0;
@@ -321,13 +321,14 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: transform var(--transition), box-shadow var(--transition);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     margin: 0;
 }
 .course-card:hover {
-    transform: scale(0.98);
-    box-shadow: 0 8px 32px rgba(16,28,44,0.18);
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    z-index: 10;
 }
 .course-card img {
     width: 100%;
@@ -350,7 +351,7 @@ header {
     text-align: center;
 }
 .course-card .enroll-btn {
-    background: var(--accent);
+    background: #e14c50;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -375,7 +376,7 @@ header {
     z-index: 2;
 }
 .heart-icon.favorited {
-    color: var(--accent);
+    color: #e14c50;
     transform: scale(1.2);
 }
 
@@ -443,12 +444,24 @@ header {
     top: 18px;
     right: 22px;
     font-size: 2rem;
-    color: var(--text-secondary);
+    color: #e0e4ee;
     cursor: pointer;
     transition: color var(--transition);
 }
 .close-btn:hover {
     color: var(--accent);
+}
+
+h2 {
+    color: #e0e4ee;
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
 }
 
 /* Responsive Design */
@@ -539,5 +552,124 @@ header {
     .site-footer {
         font-size: 0.98rem;
         padding: 16px 0 14px 0;
+    }
+} 
+
+/* Forcefully remove underline and blue color from Top Courses slider links and titles */
+.slider-wrapper a.course-card,
+.slider-wrapper a.course-card h3 {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.course-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Pop-out hover effect for Top Courses slider cards */
+.slider-wrapper .course-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    z-index: 10;
+} 
+
+/* Fix: Make Top Courses slider card titles visible on white background */
+.slider-wrapper .course-card h3 {
+    color: #222 !important;
+} 
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+    #course-search-bar {
+        font-size: 1rem;
+        padding: 12px 16px;
+        width: 80%;
+        max-width: 350px;
+    }
+    .floating-logo {
+        width: 44px;
+        height: 44px;
+        top: 10px;
+        right: 10px;
+    }
+    .slider-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 1.5rem;
+    }
+    .slider-wrapper {
+        max-width: 98vw;
+    }
+    .slider .course-card.minimal-card {
+        height: 180px;
+    }
+    .courses-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        padding: 0 8px 24px 8px;
+    }
+    .modal-content {
+        padding: 18px 4vw 18px 4vw;
+        min-width: unset;
+        max-width: 95vw;
+    }
+}
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 1.3rem;
+    }
+    .hero-content p {
+        font-size: 0.95rem;
+    }
+    #course-search-bar {
+        font-size: 0.98rem;
+        padding: 10px 10px;
+        width: 95%;
+        max-width: 98vw;
+    }
+    .floating-logo {
+        width: 36px;
+        height: 36px;
+        top: 6px;
+        right: 6px;
+    }
+    .slider-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1.2rem;
+    }
+    .slider-wrapper {
+        max-width: 100vw;
+    }
+    .slider {
+        gap: 8px;
+    }
+    .slider .course-card.minimal-card {
+        flex: 0 0 calc(33.33% - 8px);
+        width: calc(33.33% - 8px);
+        height: 120px;
+    }
+    .slider-wrapper .course-card h3 {
+        color: #222 !important;
+        font-size: 0.95rem;
+    }
+    .courses-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 4px 16px 4px;
+    }
+    .modal-content {
+        padding: 10px 2vw 10px 2vw;
+        min-width: unset;
+        max-width: 99vw;
+        font-size: 0.98rem;
+        overflow-x: auto;
     }
 } 
