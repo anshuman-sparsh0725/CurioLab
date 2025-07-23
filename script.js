@@ -88,22 +88,49 @@ function saveFavorites() {
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(favoriteCourseIds));
 }
 
+// --------- Pre-loader ---------
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    setTimeout(() => {
+        preloader.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }, 2600);
+});
+// --------- Search Bar Functionality ---------
+const courseSearchBar = document.getElementById('course-search-bar');
+if (courseSearchBar) {
+    courseSearchBar.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const cards = allCoursesSection.querySelectorAll('.course-card');
+        cards.forEach(card => {
+            const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+            if (!searchTerm || title.includes(searchTerm)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+}
 // --------- Render Functions ---------
-function renderCourseCard(course, isFavorite = false, showHeart = false, minimal = false) {
+function renderCourseCard(course, isFavorite = false, showHeart = false, minimal = false, aosDelay = 0) {
     if (minimal) {
         // For Top Courses: wrap the card in an anchor tag linking to the Google Form
         return `
-        <a href="${course.googleFormLink}" target="_blank" rel="noopener noreferrer" class="course-card minimal-card">
+        <a href="${course.googleFormLink}" target="_blank" rel="noopener noreferrer" class="course-card minimal-card" data-aos="fade-up" data-aos-delay="${aosDelay}">
             <img src="${course.imageSrc}" alt="${course.name}">
             <h3>${course.name}</h3>
         </a>
         `;
     }
+    // All Courses: wrap title/desc in .card-content for flexbox alignment
     return `
-    <div class="course-card" data-id="${course.id}">
-        <img src="${course.imageSrc}" alt="${course.name}">
-        <h3>${course.name}</h3>
-        <p>${course.description}</p>
+    <div class="course-card" data-id="${course.id}" data-aos="fade-up" data-aos-delay="${aosDelay}">
+        <div class="card-content">
+            <img src="${course.imageSrc}" alt="${course.name}">
+            <h3>${course.name}</h3>
+            <p>${course.description}</p>
+        </div>
         <a href="${course.googleFormLink}" class="enroll-btn" target="_blank" rel="noopener">Enroll</a>
         ${showHeart ? `<i class="fa-solid fa-heart heart-icon${isFavorite ? ' favorited' : ''}"></i>` : ''}
     </div>
@@ -133,7 +160,7 @@ function renderTopCoursesSlider() {
     slider.innerHTML = '';
     for (let i = 0; i < topCourses.length; i++) {
         const card = document.createElement('div');
-        card.innerHTML = renderCourseCard(topCourses[i], false, false, true);
+        card.innerHTML = renderCourseCard(topCourses[i], false, false, true, 100 * i);
         slider.appendChild(card.firstElementChild);
     }
     setTimeout(() => {
@@ -222,8 +249,8 @@ slider.addEventListener('touchmove', (e) => {
 // --------- All Courses Grid ---------
 const allCoursesSection = document.getElementById('all-courses-section');
 function renderAllCoursesGrid() {
-    allCoursesSection.innerHTML = courses.map(course =>
-        renderCourseCard(course, favoriteCourseIds.includes(course.id), true)
+    allCoursesSection.innerHTML = courses.map((course, i) =>
+        renderCourseCard(course, favoriteCourseIds.includes(course.id), true, false, 100 * i)
     ).join('');
 }
 
@@ -254,26 +281,6 @@ allCoursesSection.addEventListener('click', (e) => {
     }
     saveFavorites();
 });
-
-// --------- Search Bar Functionality ---------
-const courseSearchBar = document.getElementById('course-search-bar');
-if (courseSearchBar) {
-    courseSearchBar.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        if (allCoursesSection.classList.contains('hidden')) {
-            exploreBtn.click();
-        }
-        const cards = allCoursesSection.querySelectorAll('.course-card');
-        cards.forEach(card => {
-            const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-            if (title.includes(searchTerm)) {
-                card.style.display = '';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-}
 
 // --------- Favorites Modal Logic ---------
 const favCoursesBtn = document.getElementById('favCoursesBtn');
@@ -315,4 +322,8 @@ function init() {
         exploreBtn.textContent = 'Hide Courses';
     }
 }
+window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('all-courses-section').classList.remove('hidden');
+    document.getElementById('exploreBtn').style.display = 'block';
+});
 window.addEventListener('DOMContentLoaded', init); 

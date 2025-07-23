@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="preloader">
+        <img src="skill dog logo.jpg" alt="Loading...">
+    </div>
     <!-- 1. Floating Logo in Top Right Corner -->
     <a href="#" class="floating-logo">
         <img src="skill dog logo.jpg" alt="Company Logo">
@@ -37,12 +40,12 @@
         <!-- 4. Top Courses Slider Section -->
         <section class="courses-section">
             <div class="courses-header">
-                <h1>Top Courses</h1>
+                <h2>Top Courses</h2>
             </div>
             <button class="slider-btn prev-btn" id="prevBtn">&lt;</button>
             <div class="slider-wrapper">
                 <div class="slider" id="top-courses-slider">
-                    <!-- Course cards are dynamically inserted here by JS -->
+                    <!-- Top 6 course cards will be dynamically inserted here by JS -->
                 </div>
             </div>
             <button class="slider-btn next-btn" id="nextBtn">&gt;</button>
@@ -52,7 +55,7 @@
             <button id="exploreBtn">Explore All Courses</button>
         </section>
         <!-- 6. Hidden "All Courses" Section -->
-        <section id="all-courses-section" class="courses-grid hidden">
+        <section id="all-courses-section" class="courses-grid">
              <!-- All course cards (including the top 6) will be dynamically inserted here by JS -->
         </section>
     </main>
@@ -67,7 +70,7 @@
         </div>
     </div>
     <footer class="site-footer">
-        © Skill Dog 2025
+        All rights reserved. Skill Dog 2025
     </footer>
     <script src="script.js"></script>
 </body>
